@@ -12,6 +12,7 @@ class MultiSelectBox {
       this.maxSelection = (config && typeof config.maxSelection === 'number') ? config.maxSelection : Infinity;
       this.maxDisplayTags = (config && typeof config.maxDisplayTags === 'number') ? config.maxDisplayTags : Infinity;
       this.placeholder = (config && config.placeholder) || 'Search';
+      this.colors = (config && config.colors) || {};
       this.selectedTags = [];
       this.filteredOptions = [];
       this.highlightedIndex = -1;
@@ -78,6 +79,93 @@ class MultiSelectBox {
       this.tagInput = this.container.querySelector('#tag-input');
       this.dropdown = this.container.querySelector('#dropdown');
       this.selectedTagsDropdown = this.container.querySelector('#selected-tags-dropdown');
+      
+      this.applyCustomColors();
+  }
+
+  applyCustomColors() {
+      if (!this.colors || Object.keys(this.colors).length === 0) return;
+
+      const container = this.container;
+      
+      // Apply tag container colors directly to the specific container
+      if (this.colors.containerBorder) {
+          container.querySelector('.tag-container').style.borderColor = this.colors.containerBorder;
+      }
+      if (this.colors.containerBackground) {
+          container.querySelector('.tag-container').style.backgroundColor = this.colors.containerBackground;
+      }
+
+      // Apply tag item colors with scoped selectors
+      if (this.colors.tagBackground || this.colors.tagText || this.colors.tagBorder) {
+          const style = document.createElement('style');
+          let css = '';
+          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+          if (!container.id) container.id = containerId;
+          
+          if (this.colors.tagBackground) {
+              css += `#${containerId} .tag-item { background-color: ${this.colors.tagBackground} !important; }`;
+          }
+          if (this.colors.tagText) {
+              css += `#${containerId} .tag-item { color: ${this.colors.tagText} !important; }`;
+          }
+          if (this.colors.tagBorder) {
+              css += `#${containerId} .tag-item { border: 1px solid ${this.colors.tagBorder} !important; }`;
+          }
+          
+          if (css) {
+              style.textContent = css;
+              document.head.appendChild(style);
+          }
+      }
+
+      // Apply dropdown colors directly to the specific container
+      if (this.colors.dropdownBorder) {
+          container.querySelector('.dropdown').style.borderColor = this.colors.dropdownBorder;
+      }
+      if (this.colors.dropdownBackground) {
+          container.querySelector('.dropdown').style.backgroundColor = this.colors.dropdownBackground;
+      }
+
+      // Apply dropdown item colors with scoped selectors
+      if (this.colors.dropdownItemBackground || this.colors.dropdownItemText) {
+          const style = document.createElement('style');
+          let css = '';
+          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+          if (!container.id) container.id = containerId;
+          
+          if (this.colors.dropdownItemBackground) {
+              css += `#${containerId} .li:hover { background-color: ${this.colors.dropdownItemBackground} !important; }`;
+          }
+          if (this.colors.dropdownItemText) {
+              css += `#${containerId} .li { color: ${this.colors.dropdownItemText} !important; }`;
+          }
+          
+          if (css) {
+              style.textContent = css;
+              document.head.appendChild(style);
+          }
+      }
+
+      // Apply more indicator colors with scoped selectors
+      if (this.colors.moreIndicatorBackground || this.colors.moreIndicatorText) {
+          const style = document.createElement('style');
+          let css = '';
+          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+          if (!container.id) container.id = containerId;
+          
+          if (this.colors.moreIndicatorBackground) {
+              css += `#${containerId} .more-indicator { background-color: ${this.colors.moreIndicatorBackground} !important; }`;
+          }
+          if (this.colors.moreIndicatorText) {
+              css += `#${containerId} .more-indicator { color: ${this.colors.moreIndicatorText} !important; }`;
+          }
+          
+          if (css) {
+              style.textContent = css;
+              document.head.appendChild(style);
+          }
+      }
   }
 
   bindEvents() {

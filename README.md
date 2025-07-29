@@ -178,6 +178,80 @@ console.log(selected); // [{id: 'us', label: 'United States'}, ...]
 - **Enter:** Select highlighted option
 - **Backspace:** Remove last selected tag (when input is empty)
 
+## Color Customization
+
+You can customize the colors of various elements using the `colors` configuration option:
+
+```javascript
+const multiSelect = new MultiSelectBox('mySelect', {
+    colors: {
+        // Container colors
+        containerBorder: '#e5e7eb',
+        containerBackground: '#ffffff',
+        
+        // Tag colors
+        tagBackground: '#DBEAFE',
+        tagText: '#1E40AF',
+        tagBorder: '#3B82F6',
+        
+        // Dropdown colors
+        dropdownBorder: '#e5e7eb',
+        dropdownBackground: '#ffffff',
+        dropdownItemBackground: '#E5E7EB',
+        dropdownItemText: '#374151',
+        
+        // More indicator colors
+        moreIndicatorBackground: '#F3F4F6',
+        moreIndicatorText: '#6B7280'
+    }
+});
+```
+
+### Available Color Options
+
+| Color Option | Description | Default |
+|--------------|-------------|---------|
+| `containerBorder` | Border color of the main container | `#e5e7eb` |
+| `containerBackground` | Background color of the main container | `#ffffff` |
+| `tagBackground` | Background color of selected tags | `#DBEAFE` |
+| `tagText` | Text color of selected tags | `#1E40AF` |
+| `tagBorder` | Border color of selected tags | `#3B82F6` |
+| `dropdownBorder` | Border color of the dropdown | `#e5e7eb` |
+| `dropdownBackground` | Background color of the dropdown | `#ffffff` |
+| `dropdownItemBackground` | Background color of dropdown items on hover | `#E5E7EB` |
+| `dropdownItemText` | Text color of dropdown items | `#374151` |
+| `moreIndicatorBackground` | Background color of "+ X more" indicator | `#F3F4F6` |
+| `moreIndicatorText` | Text color of "+ X more" indicator | `#6B7280` |
+
+### Color Customization Examples
+
+**Dark Theme:**
+```javascript
+const multiSelect = new MultiSelectBox('mySelect', {
+    colors: {
+        containerBorder: '#374151',
+        containerBackground: '#1F2937',
+        tagBackground: '#3B82F6',
+        tagText: '#ffffff',
+        dropdownBackground: '#1F2937',
+        dropdownItemBackground: '#374151',
+        dropdownItemText: '#ffffff'
+    }
+});
+```
+
+**Custom Brand Colors:**
+```javascript
+const multiSelect = new MultiSelectBox('mySelect', {
+    colors: {
+        tagBackground: '#FF6B6B',
+        tagText: '#ffffff',
+        moreIndicatorBackground: '#4ECDC4',
+        moreIndicatorText: '#ffffff'
+    }
+});
+```
+
 ## CSS Handling
 
 The library automatically injects the required CSS when loaded. You don't need to manually import any CSS files.
