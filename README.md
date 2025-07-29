@@ -2,6 +2,28 @@
 
 A lightweight, vanilla JavaScript library for creating interactive multi-select dropdowns with tag-based UI.
 
+## Credits
+
+This library is inspired by and built upon the excellent work of [Habib Mhamadi's multi-select-tag](https://github.com/habibmhamadi/multi-select-tag) repository. We've enhanced the original implementation with additional features and customizations:
+
+### Original Features (from multi-select-tag):
+- Multi-select functionality with search and filter
+- Tag-based UI with remove functionality
+- Keyboard navigation support
+- Automatic synchronization with hidden select elements
+
+### Additional Features & Enhancements:
+- **Color Customization**: Full control over colors for all UI elements
+- **Tag Display Management**: Interactive "+ X more" indicator with dropdown
+- **Class-based Architecture**: Refactored to modern JavaScript class structure
+- **Auto CSS Injection**: No manual CSS imports required
+- **NPM Package**: Published as a reusable npm package
+- **Enhanced Documentation**: Comprehensive examples and API documentation
+- **Instance-Specific Styling**: Each dropdown can have unique color schemes
+
+Thank you to [Habib Mhamadi](https://github.com/habibmhamadi) for the original inspiration and foundation!
+
+
 ## Features
 
 - **Search & Filter:** Filter options dynamically as you type
