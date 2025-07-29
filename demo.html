@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-SelectBox JS Demo</title>
+    <link rel="stylesheet" href="src/css/multi-selectbox-js.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #555;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .instructions {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2196f3;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 4px solid #4caf50;
+        }
+        .output {
+            background-color: #fff3e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #ff9800;
+        }
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multi-SelectBox JS Demo</h1>
+    
+    <div class="demo-section">
+        <h2>Demo 1: Basic Multi-Select</h2>
+        <div class="description">
+            Basic multi-select with search functionality and keyboard navigation.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> Type to search, use arrow keys to navigate, press Enter to select, or click on options.
+        </div>
+        <select id="demo1" multiple>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="csharp">C#</option>
+            <option value="php">PHP</option>
+            <option value="ruby">Ruby</option>
+            <option value="go">Go</option>
+            <option value="rust">Rust</option>
+            <option value="swift">Swift</option>
+        </select>
+    </div>
+
+    <div class="demo-section">
+        <h2>Demo 2: Limited Display Tags</h2>
+        <div class="description">
+            Shows only 1 tag with a "+ X more" indicator for additional selections. Click the "+ X more" to view and manage all selected tags.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> Select multiple countries and notice how only 1 tag is shown with a "+ X more" indicator. Click the "+ X more" indicator to see all selected tags and remove them individually.
+        </div>
+        <select id="demo2" multiple>
+            <option value="india">India</option>
+            <option value="usa">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="germany">Germany</option>
+            <option value="france">France</option>
+            <option value="japan">Japan</option>
+            <option value="brazil">Brazil</option>
+            <option value="china">China</option>
+        </select>
+    </div>
+
+    <div class="demo-section">
+        <h2>Demo 3: Selection Limit</h2>
+        <div class="description">
+            Limits selection to maximum 3 items and shows 2 tags with "+ X more" indicator.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> Try to select more than 3 colors - you'll see the selection is limited. Only 2 tags are shown with a "+ X more" indicator.
+        </div>
+        <select id="demo3" multiple>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="purple">Purple</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+            <option value="brown">Brown</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+        </select>
+        <div class="output" id="output3">Selected: None</div>
+        <div class="controls">
+            <button class="btn btn-success" onclick="demo3.selectAll()">Select All</button>
+            <button class="btn btn-danger" onclick="demo3.clearAll()">Clear All</button>
+            <button class="btn" onclick="showSelected('demo3', 'output3')">Show Selected</button>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Demo 4: Required Field</h2>
+        <div class="description">
+            Required field with custom placeholder and onChange callback.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> This field is required. Try submitting the form without selecting any options to see validation.
+        </div>
+        <form id="demoForm" onsubmit="handleSubmit(event)">
+            <select id="demo4" multiple required>
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="cherry">Cherry</option>
+                <option value="date">Date</option>
+                <option value="elderberry">Elderberry</option>
+                <option value="fig">Fig</option>
+                <option value="grape">Grape</option>
+                <option value="honeydew">Honeydew</option>
+            </select>
+            <div class="output" id="output4">Selected: None</div>
+            <div class="controls">
+                <button type="submit" class="btn btn-success">Submit Form</button>
+                <button type="button" class="btn btn-danger" onclick="demo4.clearAll()">Clear All</button>
+                <button type="button" class="btn" onclick="showSelected('demo4', 'output4')">Show Selected</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="demo-section">
+        <h2>Usage Examples</h2>
+        <div class="code-block">
+// Basic usage
+const multiSelect = new MultiSelectBox('mySelect', {
+    placeholder: 'Choose options...'
+});
+
+// With display limit
+const multiSelect = new MultiSelectBox('mySelect', {
+    maxDisplayTags: 1,  // Show only 1 tag + "+ X more"
+    placeholder: 'Select items...'
+});
+
+// With selection limit
+const multiSelect = new MultiSelectBox('mySelect', {
+    maxSelection: 5,    // Allow only 5 selections
+    maxDisplayTags: 3,  // Show 3 tags + "+ X more"
+    onChange: (tags) => console.log('Selected:', tags)
+});
+
+// Required field
+const multiSelect = new MultiSelectBox('mySelect', {
+    required: true,
+    placeholder: 'Please select at least one option...'
+});
+        </div>
+    </div>
+
+    <script src="src/js/multi-selectbox-js.js"></script>
+    <script>
+        // Initialize all demos
+        const demo1 = new MultiSelectBox('demo1', {
+            placeholder: 'Select programming languages...'
+        });
+
+        const demo2 = new MultiSelectBox('demo2', {
+            maxDisplayTags: 1,
+            placeholder: 'Select countries...'
+        });
+
+        const demo3 = new MultiSelectBox('demo3', {
+            maxSelection: 3,
+            maxDisplayTags: 2,
+            placeholder: 'Select up to 3 colors...',
+            onChange: (tags) => updateOutput('output3', tags)
+        });
+
+        const demo4 = new MultiSelectBox('demo4', {
+            required: true,
+            placeholder: 'Please select at least one fruit...',
+            onChange: (tags) => updateOutput('output4', tags)
+        });
+
+        // Helper functions
+        function updateOutput(outputId, tags) {
+            const output = document.getElementById(outputId);
+            if (tags.length === 0) {
+                output.textContent = 'Selected: None';
+            } else {
+                const labels = tags.map(tag => tag.label).join(', ');
+                output.textContent = `Selected: ${labels}`;
+            }
+        }
+
+        function showSelected(demoId, outputId) {
+            let demo;
+            switch(demoId) {
+                case 'demo1': demo = demo1; break;
+                case 'demo2': demo = demo2; break;
+                case 'demo3': demo = demo3; break;
+                case 'demo4': demo = demo4; break;
+            }
+            const tags = demo.getSelectedTags();
+            updateOutput(outputId, tags);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const selectedTags = demo4.getSelectedTags();
+            if (selectedTags.length === 0) {
+                alert('Please select at least one fruit!');
+                return;
+            }
+            alert('Form submitted successfully! Selected: ' + selectedTags.map(tag => tag.label).join(', '));
+        }
+
+        // Initialize outputs
+        updateOutput('output3', []);
+        updateOutput('output4', []);
+    </script>
+</body>
+</html>

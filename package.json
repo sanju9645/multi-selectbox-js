@@ -1,0 +1,37 @@
+{
+  "name": "multi-selectbox-js",
+  "version": "1.0.0",
+  "description": "A lightweight, vanilla JavaScript library for creating interactive multi-select dropdowns with tag-based UI",
+  "main": "dist/multi-selectbox-js.js",
+  "style": "dist/multi-selectbox-js.css",
+  "scripts": {
+    "build": "mkdir -p dist && cp src/js/multi-selectbox-js.js dist/ && cp src/css/multi-selectbox-js.css dist/",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "multi-select",
+    "dropdown",
+    "select",
+    "tags",
+    "javascript",
+    "vanilla-js",
+    "ui",
+    "component",
+    "form",
+    "input"
+  ],
+  "author": "Sanju",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanju9645/multi-selectbox-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sanju9645/multi-selectbox-js/issues"
+  },
+  "homepage": "https://github.com/sanju9645/multi-selectbox-js#readme",
+  "files": [
+    "dist/",
+    "src/"
+  ]
+} 
