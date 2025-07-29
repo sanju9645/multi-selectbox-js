@@ -2,6 +2,8 @@
 
 A lightweight, vanilla JavaScript library for creating interactive multi-select dropdowns with tag-based UI.
 
+**[🎮 View Live Demo](https://sanju9645.github.io/multi-selectbox-js/index.html)**
+
 ## Credits
 
 This library is inspired by and built upon the excellent work of [Habib Mhamadi's multi-select-tag](https://github.com/habibmhamadi/multi-select-tag) repository. We've enhanced the original implementation with additional features and customizations:
