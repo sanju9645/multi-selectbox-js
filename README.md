@@ -11,6 +11,7 @@ A lightweight, vanilla JavaScript library for creating interactive multi-select 
 - **Public API:** Helper methods `selectAll()`, `clearAll()`, and `getSelectedTags()`
 - **Multiple Instances:** Each instance is independent and encapsulated
 - **No Dependencies:** Pure vanilla JavaScript with no external dependencies
+- **Auto CSS Injection:** CSS is automatically loaded - no manual CSS import needed
 
 ## Installation
 
@@ -24,20 +25,78 @@ npm install multi-selectbox-js
 <script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"></script>
 ```
 
-## Quick Start
-
-### 1. Create HTML
+### Direct File Usage (after npm install)
+If you've installed the package via npm, you can also use it directly in HTML files:
 ```html
-<select id="countries" multiple>
-    <option value="us">United States</option>
-    <option value="uk">United Kingdom</option>
-    <option value="ca">Canada</option>
-    <option value="au">Australia</option>
-</select>
+<script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"></script>
 ```
 
-### 2. Initialize
+## Quick Start
+
+### Method 1: NPM Installation
+```bash
+npm install multi-selectbox-js
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS is automatically injected by the JS file -->
+    <script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"></script>
+</head>
+<body>
+    <select id="countries" multiple>
+        <option value="us">United States</option>
+        <option value="uk">United Kingdom</option>
+        <option value="ca">Canada</option>
+        <option value="au">Australia</option>
+    </select>
+
+    <script>
+        const multiSelect = new MultiSelectBox('countries', {
+            placeholder: 'Select countries...',
+            maxDisplayTags: 2
+        });
+    </script>
+</body>
+</html>
+```
+
+### Method 2: CDN Usage
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS is automatically injected by the JS file -->
+    <script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"></script>
+</head>
+<body>
+    <select id="countries" multiple>
+        <option value="us">United States</option>
+        <option value="uk">United Kingdom</option>
+        <option value="ca">Canada</option>
+        <option value="au">Australia</option>
+    </select>
+
+    <script>
+        const multiSelect = new MultiSelectBox('countries', {
+            placeholder: 'Select countries...',
+            maxDisplayTags: 2
+        });
+    </script>
+</body>
+</html>
+```
+
+### Method 3: Module Import
 ```javascript
+// ES6 Modules
+import MultiSelectBox from 'multi-selectbox-js';
+
+// CommonJS
+const MultiSelectBox = require('multi-selectbox-js');
+
 const multiSelect = new MultiSelectBox('countries', {
     placeholder: 'Select countries...',
     maxDisplayTags: 2
@@ -118,6 +177,28 @@ console.log(selected); // [{id: 'us', label: 'United States'}, ...]
 - **Arrow Up/Down:** Navigate through dropdown options
 - **Enter:** Select highlighted option
 - **Backspace:** Remove last selected tag (when input is empty)
+
+## CSS Handling
+
+The library automatically injects the required CSS when loaded. You don't need to manually import any CSS files.
+
+### Automatic CSS Injection
+- **NPM Package**: CSS is automatically loaded from CDN
+- **CDN Usage**: CSS is automatically loaded from the same CDN
+- **Direct File Usage**: CSS is automatically loaded from CDN
+
+### Manual CSS Import (Optional)
+If you prefer to import CSS manually, you can do so:
+
+```javascript
+// Import CSS manually (optional)
+import 'multi-selectbox-js/dist/multi-selectbox-js.css';
+```
+
+```html
+<!-- Manual CSS import (optional) -->
+<link rel="stylesheet" href="node_modules/multi-selectbox-js/dist/multi-selectbox-js.css">
+```
 
 ## Browser Support
 
