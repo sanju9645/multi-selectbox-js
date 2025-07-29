@@ -1,6 +1,6 @@
 {
   "name": "multi-selectbox-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, vanilla JavaScript library for creating interactive multi-select dropdowns with tag-based UI",
   "main": "dist/multi-selectbox-js.js",
   "style": "dist/multi-selectbox-js.css",
@@ -34,4 +34,4 @@
     "dist/",
     "src/"
   ]
-} 
+}
