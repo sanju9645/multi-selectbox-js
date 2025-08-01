@@ -3,16 +3,19 @@
 
 class MultiSelectBox {
   constructor(selectElOrId, config) {
+      // Ensure config is an object
+      config = config || {};
+      
       // Private variables
       this.selectElement = null;
       this.optionsData = [];
       this.container = null;
-      this.onChange = (config && config.onChange) || function() {};
-      this.required = (config && config.required) || false;
-      this.maxSelection = (config && typeof config.maxSelection === 'number') ? config.maxSelection : Infinity;
-      this.maxDisplayTags = (config && typeof config.maxDisplayTags === 'number') ? config.maxDisplayTags : Infinity;
-      this.placeholder = (config && config.placeholder) || 'Search';
-      this.colors = (config && config.colors) || {};
+      this.onChange = config.onChange || function() {};
+      this.required = config.required || false;
+      this.maxSelection = typeof config.maxSelection === 'number' ? config.maxSelection : Infinity;
+      this.maxDisplayTags = typeof config.maxDisplayTags === 'number' ? config.maxDisplayTags : Infinity;
+      this.placeholder = config.placeholder || 'Search';
+      this.colors = config.colors || {};
       this.selectedTags = [];
       this.filteredOptions = [];
       this.highlightedIndex = -1;
@@ -166,6 +169,29 @@ class MultiSelectBox {
               document.head.appendChild(style);
           }
       }
+
+      // Apply selected tag dropdown colors with scoped selectors
+      if (this.colors.selectedTagDropdownBackground || this.colors.selectedTagDropdownText || this.colors.selectedTagDropdownHover) {
+          const style = document.createElement('style');
+          let css = '';
+          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+          if (!container.id) container.id = containerId;
+          
+          if (this.colors.selectedTagDropdownBackground) {
+              css += `#${containerId} .selected-tags-dropdown { background-color: ${this.colors.selectedTagDropdownBackground} !important; }`;
+          }
+          if (this.colors.selectedTagDropdownText) {
+              css += `#${containerId} .selected-tag-label { color: ${this.colors.selectedTagDropdownText} !important; }`;
+          }
+          if (this.colors.selectedTagDropdownHover) {
+              css += `#${containerId} .selected-tag-item:hover { background-color: ${this.colors.selectedTagDropdownHover} !important; }`;
+          }
+          
+          if (css) {
+              style.textContent = css;
+              document.head.appendChild(style);
+          }
+      }
   }
 
   bindEvents() {
@@ -224,6 +250,7 @@ class MultiSelectBox {
       });
 
       this.tagInput.addEventListener('focus', () => {
+          this.selectedTagsDropdown.classList.add('hidden'); // Hide selected items dropdown
           this.renderDropdown();
       });
   }
@@ -282,10 +309,13 @@ class MultiSelectBox {
           var closeBtn = document.createElement('span');
           closeBtn.className = 'cross';
           closeBtn.innerHTML = '&times;';
-          closeBtn.addEventListener('click', () => {
+          span.appendChild(closeBtn);
+          
+          // Make the entire tag item clickable to remove
+          span.addEventListener('click', () => {
               this.deselectTag(tag);
           });
-          span.appendChild(closeBtn);
+          
           this.selectedTagsContainer.insertBefore(span, this.tagInput);
       });
 
@@ -297,6 +327,7 @@ class MultiSelectBox {
           moreSpan.style.cursor = 'pointer';
           moreSpan.addEventListener('click', (e) => {
               e.stopPropagation();
+              this.dropdown.classList.add('hidden'); // Hide the main dropdown
               this.showSelectedTagsDropdown();
           });
           this.selectedTagsContainer.insertBefore(moreSpan, this.tagInput);
@@ -322,14 +353,16 @@ class MultiSelectBox {
           var removeBtn = document.createElement('span');
           removeBtn.className = 'selected-tag-remove';
           removeBtn.innerHTML = '&times;';
-          removeBtn.addEventListener('click', (e) => {
+
+          li.appendChild(tagLabel);
+          li.appendChild(removeBtn);
+          
+          // Make the entire item clickable to remove
+          li.addEventListener('click', (e) => {
               e.stopPropagation();
               this.deselectTag(tag);
               this.selectedTagsDropdown.classList.add('hidden');
           });
-
-          li.appendChild(tagLabel);
-          li.appendChild(removeBtn);
           this.selectedTagsDropdown.appendChild(li);
       });
 
@@ -357,14 +390,16 @@ class MultiSelectBox {
           return t.id !== tag.id;
       });
       this.renderSelectedTags();
-      this.renderDropdown();
-      this.syncToSelect();
-      this.onChange(this.selectedTags);
-
-      // Hide selected tags dropdown if no more tags
+      
+      // Don't show the main dropdown when deselecting from selected tags dropdown
+      // Only hide the selected tags dropdown if no more tags
       if (this.selectedTags.length === 0) {
           this.selectedTagsDropdown.classList.add('hidden');
+          this.dropdown.classList.add('hidden');
       }
+      
+      this.syncToSelect();
+      this.onChange(this.selectedTags);
   }
 
   syncToSelect() {

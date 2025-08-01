@@ -226,7 +226,12 @@ const multiSelect = new MultiSelectBox('mySelect', {
         
         // More indicator colors
         moreIndicatorBackground: '#F3F4F6',
-        moreIndicatorText: '#6B7280'
+        moreIndicatorText: '#6B7280',
+        
+        // Selected tag dropdown colors
+        selectedTagDropdownBackground: '#ffffff',
+        selectedTagDropdownText: '#1E40AF',
+        selectedTagDropdownHover: '#f9fafb'
     }
 });
 ```
@@ -246,6 +251,9 @@ const multiSelect = new MultiSelectBox('mySelect', {
 | `dropdownItemText` | Text color of dropdown items | `#374151` |
 | `moreIndicatorBackground` | Background color of "+ X more" indicator | `#F3F4F6` |
 | `moreIndicatorText` | Text color of "+ X more" indicator | `#6B7280` |
+| `selectedTagDropdownBackground` | Background color of selected tags dropdown | `#ffffff` |
+| `selectedTagDropdownText` | Text color of selected tags in dropdown | `#1E40AF` |
+| `selectedTagDropdownHover` | Background color of selected tags on hover in dropdown | `#f9fafb` |
 
 ### Color Customization Examples
 
