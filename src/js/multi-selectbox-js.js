@@ -402,13 +402,22 @@ class MultiSelectBox {
   }
 
   syncToSelect() {
+      // First, unselect all options
+      for (var i = 0; i < this.selectElement.options.length; i++) {
+          this.selectElement.options[i].selected = false;
+      }
+      
+      // Then, select only the options that are in selectedTags
       for (var i = 0; i < this.selectElement.options.length; i++) {
           var optionElem = this.selectElement.options[i];
           var found = this.selectedTags.find((tag) => {
               return tag.id === optionElem.value;
           });
-          optionElem.selected = !!found;
+          if (found) {
+              optionElem.selected = true;
+          }
       }
+      
       if (this.required) {
           this.tagInput.required = this.selectedTags.length ? false : true;
       } else {
@@ -444,6 +453,22 @@ class MultiSelectBox {
 
   getSelectedTags() {
       return this.selectedTags;
+  }
+
+  // Public method to manually sync selections to the original select element
+  syncSelectionsToSelect() {
+      this.syncToSelect();
+  }
+
+  // Public method to get selected values as an array
+  getSelectedValues() {
+      return this.selectedTags.map(tag => tag.id);
+  }
+
+  // Public method to ensure all selections are synced before form submission
+  prepareForFormSubmission() {
+      this.syncToSelect();
+      return this.getSelectedValues();
   }
 }
 

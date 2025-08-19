@@ -156,6 +156,65 @@
         </select>
     </div>
 
+    <div class="demo-section">
+        <h2>Demo 4: Form Submission Test</h2>
+        <div class="description">
+            Test form submission with multiple select boxes to ensure all selected values are properly sent as arrays.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> Select multiple items from each dropdown, then click "Submit Form" to see how the data would be sent to the backend. This demonstrates that all selected values are properly sent as arrays.
+        </div>
+        
+        <form id="testForm">
+            <div style="margin-bottom: 20px;">
+                <label for="countries">Select Countries:</label>
+                <select id="countries" name="countries" multiple>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                    <option value="au">Australia</option>
+                    <option value="de">Germany</option>
+                    <option value="fr">France</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="languages">Select Programming Languages:</label>
+                <select id="languages" name="languages" multiple>
+                    <option value="js">JavaScript</option>
+                    <option value="py">Python</option>
+                    <option value="java">Java</option>
+                    <option value="cpp">C++</option>
+                    <option value="cs">C#</option>
+                    <option value="go">Go</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="frameworks">Select Frameworks:</label>
+                <select id="frameworks" name="frameworks" multiple>
+                    <option value="react">React</option>
+                    <option value="vue">Vue.js</option>
+                    <option value="angular">Angular</option>
+                    <option value="django">Django</option>
+                    <option value="flask">Flask</option>
+                    <option value="spring">Spring</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Form</button>
+            <button type="button" class="btn" onclick="showSelectedData()">Show Selected Data</button>
+        </form>
+
+        <div class="output" id="output" style="display: none;">
+            <h3>Form Data That Would Be Sent to Backend:</h3>
+            <pre id="formData"></pre>
+            
+            <h3>Individual Select Box Data:</h3>
+            <pre id="individualData"></pre>
+        </div>
+    </div>
+
     <script src="src/js/multi-selectbox-js.js"></script>
     <script>
         // Initialize all demos
@@ -179,6 +238,72 @@
             }
         });
 
+        // Initialize form submission test
+        const countriesSelect = new MultiSelectBox('countries', {
+            placeholder: 'Select countries...',
+            maxDisplayTags: 2
+        });
+
+        const languagesSelect = new MultiSelectBox('languages', {
+            placeholder: 'Select languages...',
+            maxDisplayTags: 2
+        });
+
+        const frameworksSelect = new MultiSelectBox('frameworks', {
+            placeholder: 'Select frameworks...',
+            maxDisplayTags: 2
+        });
+
+        // Handle form submission
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ensure all selections are synced to original select elements
+            countriesSelect.prepareForFormSubmission();
+            languagesSelect.prepareForFormSubmission();
+            frameworksSelect.prepareForFormSubmission();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            
+            // Convert FormData to object, handling multiple values
+            for (let [key, value] of formData.entries()) {
+                if (formObject[key]) {
+                    if (Array.isArray(formObject[key])) {
+                        formObject[key].push(value);
+                    } else {
+                        formObject[key] = [formObject[key], value];
+                    }
+                } else {
+                    formObject[key] = value;
+                }
+            }
+            
+            // Display the data
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('formData').textContent = JSON.stringify(formObject, null, 2);
+            
+            // Show individual select box data
+            const individualData = {
+                countries: countriesSelect.getSelectedValues(),
+                languages: languagesSelect.getSelectedValues(),
+                frameworks: frameworksSelect.getSelectedValues()
+            };
+            document.getElementById('individualData').textContent = JSON.stringify(individualData, null, 2);
+        });
+
+        function showSelectedData() {
+            const data = {
+                countries: countriesSelect.getSelectedValues(),
+                languages: languagesSelect.getSelectedValues(),
+                frameworks: frameworksSelect.getSelectedValues()
+            };
+            
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('formData').textContent = 'Click "Submit Form" to see form data';
+            document.getElementById('individualData').textContent = JSON.stringify(data, null, 2);
+        }
 
     </script>
 </body>
