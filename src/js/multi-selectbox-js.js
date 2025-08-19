@@ -70,18 +70,21 @@ class MultiSelectBox {
   }
 
   buildHTML() {
+      // Generate unique IDs for this instance
+      const instanceId = this.selectElement.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+      
       this.container.innerHTML = `
           <div class="wrapper">
-              <div id="selected-tags" class="tag-container">
-                  <input type="text" id="tag-input" placeholder="${this.placeholder}" class="tag-input" autocomplete="off">
+              <div id="selected-tags-${instanceId}" class="tag-container">
+                  <input type="text" id="tag-input-${instanceId}" placeholder="${this.placeholder}" class="tag-input" autocomplete="off">
               </div>
-              <ul id="dropdown" class="dropdown hidden"></ul>
-              <ul id="selected-tags-dropdown" class="selected-tags-dropdown hidden"></ul>
+              <ul id="dropdown-${instanceId}" class="dropdown hidden"></ul>
+              <ul id="selected-tags-dropdown-${instanceId}" class="selected-tags-dropdown hidden"></ul>
           </div>`;
-      this.selectedTagsContainer = this.container.querySelector('#selected-tags');
-      this.tagInput = this.container.querySelector('#tag-input');
-      this.dropdown = this.container.querySelector('#dropdown');
-      this.selectedTagsDropdown = this.container.querySelector('#selected-tags-dropdown');
+      this.selectedTagsContainer = this.container.querySelector(`#selected-tags-${instanceId}`);
+      this.tagInput = this.container.querySelector(`#tag-input-${instanceId}`);
+      this.dropdown = this.container.querySelector(`#dropdown-${instanceId}`);
+      this.selectedTagsDropdown = this.container.querySelector(`#selected-tags-dropdown-${instanceId}`);
       
       this.applyCustomColors();
   }
@@ -90,6 +93,10 @@ class MultiSelectBox {
       if (!this.colors || Object.keys(this.colors).length === 0) return;
 
       const container = this.container;
+      
+      // Generate unique instance ID for scoped styling
+      const instanceId = this.selectElement.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
+      if (!container.id) container.id = `multi-selectbox-container-${instanceId}`;
       
       // Apply tag container colors directly to the specific container
       if (this.colors.containerBorder) {
@@ -103,17 +110,15 @@ class MultiSelectBox {
       if (this.colors.tagBackground || this.colors.tagText || this.colors.tagBorder) {
           const style = document.createElement('style');
           let css = '';
-          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
-          if (!container.id) container.id = containerId;
           
           if (this.colors.tagBackground) {
-              css += `#${containerId} .tag-item { background-color: ${this.colors.tagBackground} !important; }`;
+              css += `#${container.id} .tag-item { background-color: ${this.colors.tagBackground} !important; }`;
           }
           if (this.colors.tagText) {
-              css += `#${containerId} .tag-item { color: ${this.colors.tagText} !important; }`;
+              css += `#${container.id} .tag-item { color: ${this.colors.tagText} !important; }`;
           }
           if (this.colors.tagBorder) {
-              css += `#${containerId} .tag-item { border: 1px solid ${this.colors.tagBorder} !important; }`;
+              css += `#${container.id} .tag-item { border: 1px solid ${this.colors.tagBorder} !important; }`;
           }
           
           if (css) {
@@ -134,14 +139,12 @@ class MultiSelectBox {
       if (this.colors.dropdownItemBackground || this.colors.dropdownItemText) {
           const style = document.createElement('style');
           let css = '';
-          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
-          if (!container.id) container.id = containerId;
           
           if (this.colors.dropdownItemBackground) {
-              css += `#${containerId} .li:hover { background-color: ${this.colors.dropdownItemBackground} !important; }`;
+              css += `#${container.id} .li:hover { background-color: ${this.colors.dropdownItemBackground} !important; }`;
           }
           if (this.colors.dropdownItemText) {
-              css += `#${containerId} .li { color: ${this.colors.dropdownItemText} !important; }`;
+              css += `#${container.id} .li { color: ${this.colors.dropdownItemText} !important; }`;
           }
           
           if (css) {
@@ -154,14 +157,12 @@ class MultiSelectBox {
       if (this.colors.moreIndicatorBackground || this.colors.moreIndicatorText) {
           const style = document.createElement('style');
           let css = '';
-          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
-          if (!container.id) container.id = containerId;
           
           if (this.colors.moreIndicatorBackground) {
-              css += `#${containerId} .more-indicator { background-color: ${this.colors.moreIndicatorBackground} !important; }`;
+              css += `#${container.id} .more-indicator { background-color: ${this.colors.moreIndicatorBackground} !important; }`;
           }
           if (this.colors.moreIndicatorText) {
-              css += `#${containerId} .more-indicator { color: ${this.colors.moreIndicatorText} !important; }`;
+              css += `#${container.id} .more-indicator { color: ${this.colors.moreIndicatorText} !important; }`;
           }
           
           if (css) {
@@ -174,17 +175,15 @@ class MultiSelectBox {
       if (this.colors.selectedTagDropdownBackground || this.colors.selectedTagDropdownText || this.colors.selectedTagDropdownHover) {
           const style = document.createElement('style');
           let css = '';
-          const containerId = container.id || 'multi-select-' + Math.random().toString(36).substr(2, 9);
-          if (!container.id) container.id = containerId;
           
           if (this.colors.selectedTagDropdownBackground) {
-              css += `#${containerId} .selected-tags-dropdown { background-color: ${this.colors.selectedTagDropdownBackground} !important; }`;
+              css += `#${container.id} .selected-tags-dropdown { background-color: ${this.colors.selectedTagDropdownBackground} !important; }`;
           }
           if (this.colors.selectedTagDropdownText) {
-              css += `#${containerId} .selected-tag-label { color: ${this.colors.selectedTagDropdownText} !important; }`;
+              css += `#${container.id} .selected-tag-label { color: ${this.colors.selectedTagDropdownText} !important; }`;
           }
           if (this.colors.selectedTagDropdownHover) {
-              css += `#${containerId} .selected-tag-item:hover { background-color: ${this.colors.selectedTagDropdownHover} !important; }`;
+              css += `#${container.id} .selected-tag-item:hover { background-color: ${this.colors.selectedTagDropdownHover} !important; }`;
           }
           
           if (css) {

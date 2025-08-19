@@ -33,9 +33,10 @@ Thank you to [Habib Mhamadi](https://github.com/habibmhamadi) for the original i
 - **Tag Display Control:** Limit visible tags with interactive "+ X more" indicator
 - **Automatic Sync:** All changes sync with the hidden `<select>` element
 - **Public API:** Helper methods `selectAll()`, `clearAll()`, and `getSelectedTags()`
-- **Multiple Instances:** Each instance is independent and encapsulated
+- **Multiple Instances:** Each instance is independent and encapsulated with unique IDs
 - **No Dependencies:** Pure vanilla JavaScript with no external dependencies
 - **Auto CSS Injection:** CSS is automatically loaded - no manual CSS import needed
+- **Form-Ready:** Multiple select boxes can be used in a single form without conflicts
 
 ## Installation
 
@@ -188,6 +189,59 @@ Returns an array of currently selected tags.
 const selected = multiSelect.getSelectedTags();
 console.log(selected); // [{id: 'us', label: 'United States'}, ...]
 ```
+
+## Multiple Instances in Forms
+
+You can use multiple MultiSelectBox instances in a single form without any conflicts. Each instance gets unique IDs automatically:
+
+```html
+<form>
+    <select id="countries" multiple>
+        <option value="us">United States</option>
+        <option value="uk">United Kingdom</option>
+        <option value="ca">Canada</option>
+    </select>
+    
+    <select id="languages" multiple>
+        <option value="js">JavaScript</option>
+        <option value="py">Python</option>
+        <option value="java">Java</option>
+    </select>
+    
+    <select id="colors" multiple>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+    </select>
+</form>
+
+<script>
+    // Each instance works independently with unique IDs
+    const countriesSelect = new MultiSelectBox('countries', {
+        maxSelection: 3,
+        placeholder: 'Select countries...'
+    });
+    
+    const languagesSelect = new MultiSelectBox('languages', {
+        maxDisplayTags: 1,
+        placeholder: 'Select languages...'
+    });
+    
+    const colorsSelect = new MultiSelectBox('colors', {
+        colors: {
+            tagBackground: '#ff6b6b',
+            tagText: '#ffffff'
+        },
+        placeholder: 'Select colors...'
+    });
+</script>
+```
+
+### Key Benefits:
+- **No ID Conflicts:** Each instance gets unique internal IDs
+- **Independent Functionality:** Each dropdown works completely independently
+- **Individual Styling:** Each instance can have its own color scheme
+- **Form Submission:** All selected values are properly synced to the original `<select>` elements
 
 ## Interactive Features
 
