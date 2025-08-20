@@ -50,6 +50,13 @@ class MultiSelectBox {
           });
       }
 
+      // Sort options to put 'all' option first if it exists
+      this.optionsData.sort(function(a, b) {
+          if (a.id.toLowerCase() === 'all') return -1;
+          if (b.id.toLowerCase() === 'all') return 1;
+          return 0;
+      });
+
       // Create a container for the widget and insert it after the select.
       this.container = document.createElement('div');
       this.container.className = 'multi-selectbox-js';

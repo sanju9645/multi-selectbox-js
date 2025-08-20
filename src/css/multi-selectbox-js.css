@@ -21,7 +21,7 @@
   flex-grow: 1;
   outline: 2px solid transparent;
   outline-offset: 2px;
-  border: none;
+  border: none !important;
   background-color: #ffffff;
   margin: 0;
   line-height: 1.25rem;
