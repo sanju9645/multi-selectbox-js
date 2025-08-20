@@ -596,7 +596,7 @@ class MultiSelectBox {
       var link = document.createElement('link');
       link.id = 'multi-selectbox-js-styles';
       link.rel = 'stylesheet';
-      link.href = 'https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.css';
+      link.href = 'https://unpkg.com/multi-selectbox-js@1.2.0/dist/multi-selectbox-js.css';
       document.head.appendChild(link);
   }
 })();

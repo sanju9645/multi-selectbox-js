@@ -47,7 +47,7 @@ npm install multi-selectbox-js
 
 ### CDN
 ```html
-<script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"></script>
+<script src="https://unpkg.com/multi-selectbox-js@1.2.0/dist/multi-selectbox-js.js"></script>
 ```
 
 ### Direct File Usage (after npm install)
@@ -94,7 +94,7 @@ npm install multi-selectbox-js
 <html>
 <head>
     <!-- CSS is automatically injected by the JS file -->
-    <script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"></script>
+    <script src="https://unpkg.com/multi-selectbox-js@1.2.0/dist/multi-selectbox-js.js"></script>
 </head>
 <body>
     <select id="countries" multiple>
