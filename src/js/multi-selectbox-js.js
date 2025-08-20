@@ -263,15 +263,26 @@ class MultiSelectBox {
 
   renderDropdown() {
       this.dropdown.innerHTML = '';
+      
+      // Check if "All" is selected
+      const isAllSelected = this.selectedTags.find(tag => tag.id.toLowerCase() === 'all');
+      
       var visibleOptions = this.filteredOptions.filter((opt) => {
+          // If "All" is selected, only show the "All" option (which should be deselected)
+          if (isAllSelected && opt.id.toLowerCase() !== 'all') {
+              return false;
+          }
+          // Otherwise, show options that are not selected
           return !this.selectedTags.find((tag) => {
               return tag.id === opt.id;
           });
       });
+      
       if (visibleOptions.length === 0) {
           this.dropdown.classList.add('hidden');
           return;
       }
+      
       visibleOptions.forEach((option, index) => {
           var li = document.createElement('li');
           li.textContent = option.label;
@@ -305,8 +316,15 @@ class MultiSelectBox {
           moreIndicator.remove();
       }
 
-      var tagsToDisplay = this.selectedTags.slice(0, this.maxDisplayTags);
-      var remainingCount = this.selectedTags.length - this.maxDisplayTags;
+      // Sort tags to put "All" first
+      var sortedTags = this.selectedTags.slice().sort(function(a, b) {
+          if (a.id.toLowerCase() === 'all') return -1;
+          if (b.id.toLowerCase() === 'all') return 1;
+          return 0;
+      });
+
+      var tagsToDisplay = sortedTags.slice(0, this.maxDisplayTags);
+      var remainingCount = sortedTags.length - this.maxDisplayTags;
 
       tagsToDisplay.forEach((tag) => {
           var span = document.createElement('span');
@@ -348,7 +366,14 @@ class MultiSelectBox {
           return;
       }
 
-      this.selectedTags.forEach((tag) => {
+      // Sort tags to put "All" first
+      var sortedTags = this.selectedTags.slice().sort(function(a, b) {
+          if (a.id.toLowerCase() === 'all') return -1;
+          if (b.id.toLowerCase() === 'all') return 1;
+          return 0;
+      });
+
+      sortedTags.forEach((tag) => {
           var li = document.createElement('li');
           li.className = 'selected-tag-item';
 
@@ -377,9 +402,37 @@ class MultiSelectBox {
 
   selectTag(option) {
       if (this.selectedTags.length >= this.maxSelection) return;
-      if (!this.selectedTags.find((tag) => { return tag.id === option.id; })) {
-          this.selectedTags.push({ id: option.id, label: option.label });
+      
+      // Handle "All" option selection
+      if (option.id.toLowerCase() === 'all') {
+          // If "All" is selected, select all options
+          this.selectedTags = this.optionsData.map(opt => ({ id: opt.id, label: opt.label }));
+      } else {
+          // Check if "All" is already selected
+          const allOption = this.selectedTags.find(tag => tag.id.toLowerCase() === 'all');
+          if (allOption) {
+              // If "All" is selected, remove it when selecting individual options
+              this.selectedTags = this.selectedTags.filter(tag => tag.id.toLowerCase() !== 'all');
+          }
+          
+          // Add the selected option if not already present
+          if (!this.selectedTags.find((tag) => { return tag.id === option.id; })) {
+              this.selectedTags.push({ id: option.id, label: option.label });
+          }
+          
+          // Check if all individual options are selected (excluding "All")
+          const nonAllOptions = this.optionsData.filter(opt => opt.id.toLowerCase() !== 'all');
+          const selectedNonAllOptions = this.selectedTags.filter(tag => tag.id.toLowerCase() !== 'all');
+          
+          // If all individual options are selected, automatically select "All"
+          if (selectedNonAllOptions.length === nonAllOptions.length && nonAllOptions.length > 0) {
+              const allOption = this.optionsData.find(opt => opt.id.toLowerCase() === 'all');
+              if (allOption && !this.selectedTags.find(tag => tag.id.toLowerCase() === 'all')) {
+                  this.selectedTags.push({ id: allOption.id, label: allOption.label });
+              }
+          }
       }
+      
       this.tagInput.value = '';
       this.filteredOptions = this.optionsData.filter((opt) => {
           return opt.label.toLowerCase().includes(this.tagInput.value.toLowerCase());
@@ -392,9 +445,40 @@ class MultiSelectBox {
   }
 
   deselectTag(tag) {
-      this.selectedTags = this.selectedTags.filter((t) => {
-          return t.id !== tag.id;
-      });
+      // Handle "All" option deselection
+      if (tag.id.toLowerCase() === 'all') {
+          // If "All" is deselected, deselect all options
+          this.selectedTags = [];
+      } else {
+          // Check if "All" is currently selected
+          const isAllSelected = this.selectedTags.find(t => t.id.toLowerCase() === 'all');
+          
+          if (isAllSelected) {
+              // If "All" is selected and we're removing an individual option,
+              // remove "All" and keep all other options except the one being removed
+              this.selectedTags = this.selectedTags.filter((t) => {
+                  return t.id !== tag.id && t.id.toLowerCase() !== 'all';
+              });
+          } else {
+              // Remove the specific tag
+              this.selectedTags = this.selectedTags.filter((t) => {
+                  return t.id !== tag.id;
+              });
+          }
+          
+          // Check if all individual options are selected (excluding "All")
+          const nonAllOptions = this.optionsData.filter(opt => opt.id.toLowerCase() !== 'all');
+          const selectedNonAllOptions = this.selectedTags.filter(tag => tag.id.toLowerCase() !== 'all');
+          
+          // If all individual options are selected, automatically select "All"
+          if (selectedNonAllOptions.length === nonAllOptions.length && nonAllOptions.length > 0) {
+              const allOption = this.optionsData.find(opt => opt.id.toLowerCase() === 'all');
+              if (allOption && !this.selectedTags.find(tag => tag.id.toLowerCase() === 'all')) {
+                  this.selectedTags.push({ id: allOption.id, label: allOption.label });
+              }
+          }
+      }
+      
       this.renderSelectedTags();
       
       // Don't show the main dropdown when deselecting from selected tags dropdown
