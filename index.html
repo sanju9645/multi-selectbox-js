@@ -87,13 +87,193 @@
         .btn-success:hover {
             background-color: #218838;
         }
+        
+        /* Code toggle styles */
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .demo-header h2 {
+            margin: 0;
+        }
+        
+        .code-toggle-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .code-toggle-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .code-toggle-btn.active {
+            background-color: #495057;
+        }
+        
+        .code-container {
+            display: none;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #e9ecef;
+            border-bottom: 1px solid #ddd;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .code-header h4 {
+            margin: 0;
+            color: #495057;
+            font-size: 14px;
+        }
+        
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .copy-btn.copied {
+            background-color: #28a745;
+        }
+        
+        .code-content {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #333;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        /* Configuration Panel Styles */
+        .config-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .config-panel h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #495057;
+            font-size: 18px;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .config-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .config-item label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #495057;
+            font-size: 14px;
+        }
+        
+        .config-item input,
+        .config-item select {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .config-item input[type="color"] {
+            height: 40px;
+            padding: 4px;
+            cursor: pointer;
+        }
+        
+        .config-item input:focus,
+        .config-item select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .config-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 <body>
     <h1>Multi-SelectBox JS Demo</h1>
     
     <div class="demo-section">
-        <h2>Demo 1: Basic Multi-Select</h2>
+        <div class="demo-header">
+            <h2>Demo 1: Basic Multi-Select</h2>
+            <button class="code-toggle-btn" onclick="toggleCode('demo1-code')">code ▼</button>
+        </div>
         <div class="description">
             Basic multi-select with search functionality and keyboard navigation.
         </div>
@@ -112,10 +292,44 @@
             <option value="rust">Rust</option>
             <option value="swift">Swift</option>
         </select>
+        
+        <div id="demo1-code" class="code-container">
+            <div class="code-header">
+                <h4>HTML & JavaScript Code</h4>
+                <button class="copy-btn" onclick="copyCode('demo1-code')">Copy</button>
+            </div>
+            <div class="code-content">&lt;select id="demo1" multiple&gt;
+    &lt;option value="javascript"&gt;JavaScript&lt;/option&gt;
+    &lt;option value="python"&gt;Python&lt;/option&gt;
+    &lt;option value="java"&gt;Java&lt;/option&gt;
+    &lt;option value="cpp"&gt;C++&lt;/option&gt;
+    &lt;option value="csharp"&gt;C#&lt;/option&gt;
+    &lt;option value="php"&gt;PHP&lt;/option&gt;
+    &lt;option value="ruby"&gt;Ruby&lt;/option&gt;
+    &lt;option value="go"&gt;Go&lt;/option&gt;
+    &lt;option value="rust"&gt;Rust&lt;/option&gt;
+    &lt;option value="swift"&gt;Swift&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Include via NPM (after npm install multi-selectbox-js) --&gt;
+&lt;script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"&gt;&lt;/script&gt;
+
+&lt;!-- Or include via CDN --&gt;
+&lt;!-- &lt;script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"&gt;&lt;/script&gt; --&gt;
+
+&lt;script&gt;
+    const demo1 = new MultiSelectBox('demo1', {
+        placeholder: 'Select programming languages...'
+    });
+&lt;/script&gt;</div>
+        </div>
     </div>
 
     <div class="demo-section">
-        <h2>Demo 2: Limited Display Tags</h2>
+        <div class="demo-header">
+            <h2>Demo 2: Limited Display Tags</h2>
+            <button class="code-toggle-btn" onclick="toggleCode('demo2-code')">code ▼</button>
+        </div>
         <div class="description">
             Shows only 1 tag with a "+ X more" indicator for additional selections. Click the "+ X more" to view and manage all selected tags.
         </div>
@@ -134,17 +348,182 @@
             <option value="brazil">Brazil</option>
             <option value="china">China</option>
         </select>
+        
+        <div id="demo2-code" class="code-container">
+            <div class="code-header">
+                <h4>HTML & JavaScript Code</h4>
+                <button class="copy-btn" onclick="copyCode('demo2-code')">Copy</button>
+            </div>
+            <div class="code-content">&lt;select id="demo2" multiple&gt;
+    &lt;option value="india"&gt;India&lt;/option&gt;
+    &lt;option value="usa"&gt;United States&lt;/option&gt;
+    &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+    &lt;option value="canada"&gt;Canada&lt;/option&gt;
+    &lt;option value="australia"&gt;Australia&lt;/option&gt;
+    &lt;option value="germany"&gt;Germany&lt;/option&gt;
+    &lt;option value="france"&gt;France&lt;/option&gt;
+    &lt;option value="japan"&gt;Japan&lt;/option&gt;
+    &lt;option value="brazil"&gt;Brazil&lt;/option&gt;
+    &lt;option value="china"&gt;China&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Include via NPM (after npm install multi-selectbox-js) --&gt;
+&lt;script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"&gt;&lt;/script&gt;
+
+&lt;!-- Or include via CDN --&gt;
+&lt;!-- &lt;script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"&gt;&lt;/script&gt; --&gt;
+
+&lt;script&gt;
+    const demo2 = new MultiSelectBox('demo2', {
+        maxDisplayTags: 1,
+        placeholder: 'Select countries...'
+    });
+&lt;/script&gt;</div>
+        </div>
     </div>
 
     <div class="demo-section">
-        <h2>Demo 3: Custom Colors</h2>
+        <div class="demo-header">
+            <h2>Demo 3: Smart "All" Option</h2>
+            <button class="code-toggle-btn" onclick="toggleCode('demo3-code')">code ▼</button>
+        </div>
         <div class="description">
-            Custom color scheme with red tags and teal "+ X more" indicator.
+            Demonstrates the new "All" option functionality with custom text and automatic management.
         </div>
         <div class="instructions">
-            <strong>Instructions:</strong> Select multiple colors to see the custom styling with red tags and teal "+ X more" indicator.
+            <strong>Instructions:</strong> This demo shows the new "All" option feature. The "Select All Technologies" option will automatically select all items, and selecting individual items will manage the "All" state intelligently.
         </div>
-        <select id="demo3" multiple>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="demo3">Select Technologies:</label>
+            <select id="demo3" name="demo3" multiple>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="php">PHP</option>
+            </select>
+        </div>
+        
+        <div id="demo3-code" class="code-container">
+            <div class="code-header">
+                <h4>HTML & JavaScript Code</h4>
+                <button class="copy-btn" onclick="copyCode('demo3-code')">Copy</button>
+            </div>
+            <div class="code-content">&lt;select id="demo3" name="demo3" multiple&gt;
+    &lt;option value="html"&gt;HTML&lt;/option&gt;
+    &lt;option value="css"&gt;CSS&lt;/option&gt;
+    &lt;option value="javascript"&gt;JavaScript&lt;/option&gt;
+    &lt;option value="python"&gt;Python&lt;/option&gt;
+    &lt;option value="java"&gt;Java&lt;/option&gt;
+    &lt;option value="php"&gt;PHP&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Include via NPM (after npm install multi-selectbox-js) --&gt;
+&lt;script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"&gt;&lt;/script&gt;
+
+&lt;!-- Or include via CDN --&gt;
+&lt;!-- &lt;script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"&gt;&lt;/script&gt; --&gt;
+
+&lt;script&gt;
+    const demo3 = new MultiSelectBox('demo3', {
+        maxDisplayTags: 3,
+        placeholder: 'Select technologies...',
+        addAllOption: true,
+        allOptionText: 'Select All Technologies',
+    });
+&lt;/script&gt;</div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <div class="demo-header">
+            <h2>Demo 4: Custom Colors</h2>
+            <button class="code-toggle-btn" onclick="toggleCode('demo4-code')">code ▼</button>
+        </div>
+        <div class="description">
+            Interactive configuration panel to customize all MultiSelectBox properties and see live changes.
+        </div>
+        <div class="instructions">
+            <strong>Instructions:</strong> Use the configuration panel below to customize the MultiSelectBox properties. Click "Apply" to see live changes, or "Reset" to restore default values.
+        </div>
+        
+        <!-- Configuration Panel -->
+        <div class="config-panel">
+            <h3>Configuration Panel</h3>
+            <div class="config-grid">
+                <div class="config-item">
+                    <label for="maxDisplayTags">maxDisplayTags:</label>
+                    <select id="maxDisplayTags">
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                
+                <div class="config-item">
+                    <label for="placeholder">placeholder:</label>
+                    <input type="text" id="placeholder" value="Select colors..." />
+                </div>
+                
+                <div class="config-item">
+                    <label for="addAllOption">addAllOption:</label>
+                    <select id="addAllOption">
+                        <option value="true" selected>true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+                
+                <div class="config-item">
+                    <label for="allOptionText">allOptionText:</label>
+                    <input type="text" id="allOptionText" value="Select All Colors" />
+                </div>
+                
+                <div class="config-item">
+                    <label for="tagBackground">tagBackground:</label>
+                    <input type="color" id="tagBackground" value="#FF6B6B" />
+                </div>
+                
+                <div class="config-item">
+                    <label for="tagText">tagText:</label>
+                    <input type="color" id="tagText" value="#ffffff" />
+                </div>
+                
+                <div class="config-item">
+                    <label for="moreIndicatorBackground">moreIndicatorBackground:</label>
+                    <input type="color" id="moreIndicatorBackground" value="#4ECDC4" />
+                </div>
+                
+                <div class="config-item">
+                    <label for="moreIndicatorText">moreIndicatorText:</label>
+                    <input type="color" id="moreIndicatorText" value="#ffffff" />
+                </div>
+            </div>
+            
+            <div class="config-buttons">
+                <button class="btn btn-primary" onclick="applyConfig()">Apply</button>
+                <button class="btn btn-secondary" onclick="resetConfig()">Reset</button>
+            </div>
+        </div>
+        
+        <select id="demo4" multiple>
             <option value="red">Red</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
@@ -154,10 +533,48 @@
             <option value="pink">Pink</option>
             <option value="brown">Brown</option>
         </select>
+        
+        <div id="demo4-code" class="code-container">
+            <div class="code-header">
+                <h4>HTML & JavaScript Code</h4>
+                <button class="copy-btn" onclick="copyCode('demo4-code')">Copy</button>
+            </div>
+            <div class="code-content">&lt;select id="demo4" multiple&gt;
+    &lt;option value="red"&gt;Red&lt;/option&gt;
+    &lt;option value="blue"&gt;Blue&lt;/option&gt;
+    &lt;option value="green"&gt;Green&lt;/option&gt;
+    &lt;option value="yellow"&gt;Yellow&lt;/option&gt;
+    &lt;option value="purple"&gt;Purple&lt;/option&gt;
+    &lt;option value="orange"&gt;Orange&lt;/option&gt;
+    &lt;option value="pink"&gt;Pink&lt;/option&gt;
+    &lt;option value="brown"&gt;Brown&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Include via NPM (after npm install multi-selectbox-js) --&gt;
+&lt;script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"&gt;&lt;/script&gt;
+
+&lt;!-- Or include via CDN --&gt;
+&lt;!-- &lt;script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"&gt;&lt;/script&gt; --&gt;
+
+&lt;script&gt;
+    const demo4 = new MultiSelectBox('demo4', {
+        maxDisplayTags: 2,
+        placeholder: 'Select colors...',
+        addAllOption: true,
+        allOptionText: 'Select All Colors',
+        colors: {
+            tagBackground: '#FF6B6B',
+            tagText: '#ffffff',
+            moreIndicatorBackground: '#4ECDC4',
+            moreIndicatorText: '#ffffff'
+        }
+    });
+&lt;/script&gt;</div>
+        </div>
     </div>
 
     <div class="demo-section">
-        <h2>Demo 4: Form Submission Test</h2>
+        <h2>Demo 5: Form Submission Test</h2>
         <div class="description">
             Test form submission with multiple select boxes to ensure all selected values are properly sent as arrays.
         </div>
@@ -218,6 +635,9 @@
 
     <script src="src/js/multi-selectbox-js.js"></script>
     <script>
+        // Global variable for demo4 instance
+        let demo4Instance = null;
+        
         // Initialize all demos
         const demo1 = new MultiSelectBox('demo1', {
             placeholder: 'Select programming languages...'
@@ -229,15 +649,30 @@
         });
 
         const demo3 = new MultiSelectBox('demo3', {
+            maxDisplayTags: 3,
+            placeholder: 'Select technologies...',
+            addAllOption: true,
+            allOptionText: 'Select All Technologies'
+        });
+
+        // Initialize demo4 with default configuration
+        const defaultConfig = {
             maxDisplayTags: 2,
             placeholder: 'Select colors...',
+            addAllOption: true,
+            allOptionText: 'Select All Colors',
             colors: {
                 tagBackground: '#FF6B6B',
                 tagText: '#ffffff',
                 moreIndicatorBackground: '#4ECDC4',
                 moreIndicatorText: '#ffffff'
             }
-        });
+        };
+        
+        demo4Instance = new MultiSelectBox('demo4', defaultConfig);
+        
+        // Initialize the code example with default configuration
+        updateCodeExample(defaultConfig);
 
         // Initialize form submission test
         const countriesSelect = new MultiSelectBox('countries', {
@@ -304,6 +739,133 @@
             document.getElementById('output').style.display = 'block';
             document.getElementById('formData').textContent = 'Click "Submit Form" to see form data';
             document.getElementById('individualData').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Code toggle functionality
+        function toggleCode(codeId) {
+            const codeContainer = document.getElementById(codeId);
+            const toggleBtn = event.target;
+            
+            if (codeContainer.style.display === 'block') {
+                codeContainer.style.display = 'none';
+                toggleBtn.classList.remove('active');
+                toggleBtn.textContent = 'code ▼';
+            } else {
+                codeContainer.style.display = 'block';
+                toggleBtn.classList.add('active');
+                toggleBtn.textContent = 'code ▲';
+            }
+        }
+
+        // Copy code functionality
+        function copyCode(codeId) {
+            const codeContent = document.querySelector(`#${codeId} .code-content`);
+            const copyBtn = event.target;
+            
+            // Create a temporary textarea to copy the text
+            const textarea = document.createElement('textarea');
+            textarea.value = codeContent.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            // Show feedback
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }
+
+        // Configuration Panel Functions
+        
+        function applyConfig() {
+            // Get all configuration values
+            const config = {
+                maxDisplayTags: parseInt(document.getElementById('maxDisplayTags').value),
+                placeholder: document.getElementById('placeholder').value,
+                addAllOption: document.getElementById('addAllOption').value === 'true',
+                allOptionText: document.getElementById('allOptionText').value,
+                colors: {
+                    tagBackground: document.getElementById('tagBackground').value,
+                    tagText: document.getElementById('tagText').value,
+                    moreIndicatorBackground: document.getElementById('moreIndicatorBackground').value,
+                    moreIndicatorText: document.getElementById('moreIndicatorText').value
+                }
+            };
+            
+            // Destroy existing instance if it exists
+            if (demo4Instance) {
+                // Remove the existing container
+                const existingContainer = document.querySelector('#demo4').nextElementSibling;
+                if (existingContainer && existingContainer.classList.contains('multi-selectbox-js')) {
+                    existingContainer.remove();
+                }
+            }
+            
+            // Clear the original select element
+            const originalSelect = document.getElementById('demo4');
+            originalSelect.selectedIndex = -1;
+            
+            // Create new instance with updated configuration
+            demo4Instance = new MultiSelectBox('demo4', config);
+            
+            // Update the code example
+            updateCodeExample(config);
+        }
+        
+        function resetConfig() {
+            // Reset all inputs to default values
+            document.getElementById('maxDisplayTags').value = '2';
+            document.getElementById('placeholder').value = 'Select colors...';
+            document.getElementById('addAllOption').value = 'true';
+            document.getElementById('allOptionText').value = 'Select All Colors';
+            document.getElementById('tagBackground').value = '#FF6B6B';
+            document.getElementById('tagText').value = '#ffffff';
+            document.getElementById('moreIndicatorBackground').value = '#4ECDC4';
+            document.getElementById('moreIndicatorText').value = '#ffffff';
+            
+            // Apply the reset configuration
+            applyConfig();
+        }
+        
+        function updateCodeExample(config) {
+            const codeContent = document.querySelector('#demo4-code .code-content');
+            
+            // Format the configuration object for display
+            const configFormatted = `{
+    maxDisplayTags: ${config.maxDisplayTags},
+    placeholder: '${config.placeholder}',
+    addAllOption: ${config.addAllOption},
+    allOptionText: '${config.allOptionText}',
+    colors: {
+        tagBackground: '${config.colors.tagBackground}',
+        tagText: '${config.colors.tagText}',
+        moreIndicatorBackground: '${config.colors.moreIndicatorBackground}',
+        moreIndicatorText: '${config.colors.moreIndicatorText}'
+    }
+}`;
+            
+            codeContent.textContent = '&lt;select id="demo4" multiple&gt;\n' +
+                '    &lt;option value="red"&gt;Red&lt;/option&gt;\n' +
+                '    &lt;option value="blue"&gt;Blue&lt;/option&gt;\n' +
+                '    &lt;option value="green"&gt;Green&lt;/option&gt;\n' +
+                '    &lt;option value="yellow"&gt;Yellow&lt;/option&gt;\n' +
+                '    &lt;option value="purple"&gt;Purple&lt;/option&gt;\n' +
+                '    &lt;option value="orange"&gt;Orange&lt;/option&gt;\n' +
+                '    &lt;option value="pink"&gt;Pink&lt;/option&gt;\n' +
+                '    &lt;option value="brown"&gt;Brown&lt;/option&gt;\n' +
+                '&lt;/select&gt;\n\n' +
+                '&lt;!-- Include via NPM (after npm install multi-selectbox-js) --&gt;\n' +
+                '&lt;script src="node_modules/multi-selectbox-js/dist/multi-selectbox-js.js"&gt;&lt;/script&gt;\n\n' +
+                '&lt;!-- Or include via CDN --&gt;\n' +
+                '&lt;!-- &lt;script src="https://unpkg.com/multi-selectbox-js@1.0.0/dist/multi-selectbox-js.js"&gt;&lt;/script&gt; --&gt;\n\n' +
+                '&lt;script&gt;\n' +
+                '    const demo4 = new MultiSelectBox(\'demo4\', ' + configFormatted + ');\n' +
+                '&lt;/script&gt;';
         }
 
     </script>

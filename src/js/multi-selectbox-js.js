@@ -16,6 +16,8 @@ class MultiSelectBox {
       this.maxDisplayTags = typeof config.maxDisplayTags === 'number' ? config.maxDisplayTags : Infinity;
       this.placeholder = config.placeholder || 'Search';
       this.colors = config.colors || {};
+      this.addAllOption = config.addAllOption || false;
+      this.allOptionText = config.allOptionText || 'Select All';
       this.selectedTags = [];
       this.filteredOptions = [];
       this.highlightedIndex = -1;
@@ -48,6 +50,21 @@ class MultiSelectBox {
               label: option.text,
               preselected: option.selected
           });
+      }
+
+      // Add "All" option if enabled and not already present
+      if (this.addAllOption) {
+          const existingAllOption = this.optionsData.find(opt => opt.id.toLowerCase() === 'all');
+          if (!existingAllOption) {
+              this.optionsData.unshift({
+                  id: 'all',
+                  label: this.allOptionText,
+                  preselected: false
+              });
+          } else {
+              // Update the label if "All" option already exists
+              existingAllOption.label = this.allOptionText;
+          }
       }
 
       // Sort options to put 'all' option first if it exists
@@ -518,6 +535,16 @@ class MultiSelectBox {
 
   // Public API methods
   selectAll() {
+      // If "All" option is enabled, select it which will automatically select all options
+      if (this.addAllOption) {
+          const allOption = this.optionsData.find(opt => opt.id.toLowerCase() === 'all');
+          if (allOption) {
+              this.selectTag(allOption);
+              return;
+          }
+      }
+      
+      // Fallback to original selectAll behavior
       for (var i = 0; i < this.optionsData.length; i++) {
           if (this.selectedTags.length >= this.maxSelection) break;
           var opt = this.optionsData[i];

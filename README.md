@@ -137,6 +137,8 @@ const multiSelect = new MultiSelectBox('countries', {
 | `maxDisplayTags` | number | Infinity | Maximum number of visible tags (shows "+ X more" for overflow) |
 | `required` | boolean | false | Whether the field is required |
 | `onChange` | function | null | Callback function when selection changes |
+| `addAllOption` | boolean | false | Enable/disable the "All" option functionality |
+| `allOptionText` | string | 'Select All' | Custom text for the "All" option display |
 
 ## Examples
 
@@ -160,6 +162,16 @@ const multiSelect = new MultiSelectBox('mySelect', {
 const multiSelect = new MultiSelectBox('mySelect', {
     maxSelection: 5,    // Allow only 5 selections
     maxDisplayTags: 3,  // Show 3 tags + "+ X more"
+    onChange: (tags) => console.log('Selected:', tags)
+});
+```
+
+### With "All" Option
+```javascript
+const multiSelect = new MultiSelectBox('mySelect', {
+    addAllOption: true,           // Enable "All" option
+    allOptionText: 'Select All',  // Custom text for "All" option
+    maxDisplayTags: 3,
     onChange: (tags) => console.log('Selected:', tags)
 });
 ```
@@ -188,6 +200,34 @@ Returns an array of currently selected tags.
 ```javascript
 const selected = multiSelect.getSelectedTags();
 console.log(selected); // [{id: 'us', label: 'United States'}, ...]
+```
+
+## "All" Option Functionality
+
+When `addAllOption: true` is enabled, the MultiSelectBox provides intelligent "All" option management:
+
+### Features:
+- **Auto-placement**: "All" option always appears first in the dropdown and selections
+- **Smart selection**: Selecting "All" automatically selects all other options
+- **Smart deselection**: Deselecting "All" clears all selections
+- **Auto-management**: Selecting all individual options automatically adds "All"
+- **Mutual exclusivity**: Selecting individual options when "All" is selected removes "All"
+- **Custom text**: Use `allOptionText` to customize the display text
+
+### Behavior Examples:
+```javascript
+// When "All" is selected
+// All other options are automatically selected
+// "All" appears first in the selected tags list
+
+// When individual options are selected
+// If all individual options become selected, "All" is automatically added
+
+// When "All" is deselected
+// All other selections are cleared
+
+// When individual options are deselected from "All"
+// "All" is automatically removed, other selections remain
 ```
 
 ## Multiple Instances in Forms
